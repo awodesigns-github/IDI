@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Application Routes
+Route::get('application', [ApplicationController::class, 'index'])->name('application.index');
+Route::get('application-registration', [ApplicationController::class, 'create'])->name('application.create');
+Route::post('application-registration', [ApplicationController::class, 'store'])->name('application.store');
+Route::get('application/edit/{id}', [ApplicationController::class, 'edit'])->name('application.edit');
+Route::patch('application/edit/{id}', [ApplicationController::class, 'update'])->name('application.update');
+Route::get('application/{id}', [ApplicationController::class, 'show'])->name('application.show');
+Route::delete('application/{id}', [ApplicationController::class, 'destroy'])->name('application.destroy');
+
 
 require __DIR__.'/auth.php';
