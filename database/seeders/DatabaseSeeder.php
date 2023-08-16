@@ -30,8 +30,44 @@ class DatabaseSeeder extends Seeder
             'name' => 'IDI',
             'description' => 'This is a management application for managing entreprise applications and systems',
             'technology_id' => 1,
-            'server_id' => 1,
+            'server_id' => 2,
             'owner_id' => 1
+        ]);
+
+        \App\Models\Application::create([
+            'ci_number' => 'NBC011',
+            'name' => 'IDI',
+            'description' => 'This is a management application for managing entreprise applications and systems',
+            'technology_id' => 1,
+            'server_id' => 3,
+            'owner_id' => 1
+        ]);
+
+        \App\Models\Application::create([
+            'ci_number' => 'NBC002',
+            'name' => 'IDI',
+            'description' => 'This is a management application for managing entreprise applications and systems',
+            'technology_id' => 1,
+            'server_id' => 2,
+            'owner_id' => 2
+        ]);
+
+        \App\Models\Application::create([
+            'ci_number' => 'NBC006',
+            'name' => 'IDI',
+            'description' => 'This is a management application for managing entreprise applications and systems',
+            'technology_id' => 3,
+            'server_id' => 1,
+            'owner_id' => 3
+        ]);
+
+        \App\Models\Application::create([
+            'ci_number' => 'NBC004',
+            'name' => 'IDI',
+            'description' => 'This is a management application for managing entreprise applications and systems',
+            'technology_id' => 3,
+            'server_id' => 2,
+            'owner_id' => 2
         ]);
 
         //purposes seeder
@@ -97,8 +133,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //department seeder
+        // \App\Models\Department::create([
+        //     'name' => 'Banking and Finance',
+        //     'branch' => 'Samora',
+        //     'units' => 3,
+        //     'applications' => 3,
+        //     'kpi' => 3,
+        //     'application_id' => 1,
+        //     'organisational_unit_id' => 1
+        // ]);
+
+        // \App\Models\Department::create([
+        //     'name' => 'IT',
+        //     'branch' => 'Posta',
+        //     'units' => 3,
+        //     'applications' => 2,
+        //     'kpi' => 3,
+        //     'application_id' => 4,
+        //     'organisational_unit_id' => 1
+        // ]);
         \App\Models\Department::create([
-            'details' => 'Business'
+            'details' => 'Banking and Finance'
         ]);
 
         \App\Models\Department::create([
