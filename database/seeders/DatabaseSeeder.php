@@ -24,50 +24,60 @@ class DatabaseSeeder extends Seeder
             'email' => 'testII@example.com',
         ]);
 
+        \App\Models\User::factory()->create([
+            'name' => 'Joseph Phillip',
+            'email' => 'Joseph_idi@gmail.com',
+        ]);
+
         // application seeder
         \App\Models\Application::create([
             'ci_number' => 'NBC001',
             'name' => 'IDI',
-            'description' => 'This is a management application for managing entreprise applications and systems',
+            'description' => 'This is a management application for managing entreprise applications and resources',
             'technology_id' => 1,
             'server_id' => 2,
-            'owner_id' => 1
+            'owner_id' => 1,
+            'environment_id' => 2
         ]);
 
         \App\Models\Application::create([
             'ci_number' => 'NBC011',
-            'name' => 'IDI',
-            'description' => 'This is a management application for managing entreprise applications and systems',
+            'name' => 'ServiceNow',
+            'description' => 'An Enterprise application for issuing tickets',
             'technology_id' => 1,
             'server_id' => 3,
-            'owner_id' => 1
+            'owner_id' => 1,
+            'environment_id' => 2
         ]);
 
         \App\Models\Application::create([
             'ci_number' => 'NBC002',
-            'name' => 'IDI',
+            'name' => 'IdeaBox',
             'description' => 'This is a management application for managing entreprise applications and systems',
             'technology_id' => 1,
             'server_id' => 2,
-            'owner_id' => 2
+            'owner_id' => 2,
+            'environment_id' => 1
         ]);
 
         \App\Models\Application::create([
             'ci_number' => 'NBC006',
-            'name' => 'IDI',
+            'name' => 'NBC Connect',
             'description' => 'This is a management application for managing entreprise applications and systems',
             'technology_id' => 3,
             'server_id' => 1,
-            'owner_id' => 3
+            'owner_id' => 3,
+            'environment_id' => 1
         ]);
 
         \App\Models\Application::create([
             'ci_number' => 'NBC004',
-            'name' => 'IDI',
+            'name' => 'AfricaAccess',
             'description' => 'This is a management application for managing entreprise applications and systems',
             'technology_id' => 3,
             'server_id' => 2,
-            'owner_id' => 2
+            'owner_id' => 2,
+            'environment_id' => 3
         ]);
 
         //purposes seeder
@@ -132,33 +142,59 @@ class DatabaseSeeder extends Seeder
             'status' => true
         ]);
 
+        \App\Models\Server::create([
+            'ip_address' => "192.168.1.3",
+            'hostname' => 'localhost',
+            'environment_id' => 2,
+            'purpose_id' => 1,
+            'operating_system_id' => 1,
+            'server_type_id' => 2,
+            'server_memory' => '32000',
+            'disk_space' => '64000',
+            'applications' => 3,
+            'status' => true
+        ]);
+
+        \App\Models\Server::create([
+            'ip_address' => "192.168.1.5",
+            'hostname' => 'Devs',
+            'environment_id' => 3,
+            'purpose_id' => 1,
+            'operating_system_id' => 2,
+            'server_type_id' => 2,
+            'server_memory' => '32000',
+            'disk_space' => '128000',
+            'applications' => 2,
+            'status' => true
+        ]);
+
         //department seeder
-        // \App\Models\Department::create([
-        //     'name' => 'Banking and Finance',
-        //     'branch' => 'Samora',
-        //     'units' => 3,
-        //     'applications' => 3,
-        //     'kpi' => 3,
-        //     'application_id' => 1,
-        //     'organisational_unit_id' => 1
-        // ]);
-
-        // \App\Models\Department::create([
-        //     'name' => 'IT',
-        //     'branch' => 'Posta',
-        //     'units' => 3,
-        //     'applications' => 2,
-        //     'kpi' => 3,
-        //     'application_id' => 4,
-        //     'organisational_unit_id' => 1
-        // ]);
         \App\Models\Department::create([
-            'details' => 'Banking and Finance'
+            'name' => 'Banking and Finance',
+            'branch' => 'Samora',
+            'units' => 3,
+            'applications' => 3,
+            'kpi' => 3,
+            'application_id' => 1,
+            'organisational_unit_id' => 1
         ]);
 
         \App\Models\Department::create([
-            'details' => 'IT'
+            'name' => 'IT',
+            'branch' => 'Posta',
+            'units' => 3,
+            'applications' => 2,
+            'kpi' => 3,
+            'application_id' => 2,
+            'organisational_unit_id' => 1
         ]);
+        // \App\Models\Department::create([
+        //     'details' => 'Banking and Finance'
+        // ]);
+
+        // \App\Models\Department::create([
+        //     'details' => 'IT'
+        // ]);
 
         //oganistaional units seeder
         \App\Models\Organisational_unit::create([
@@ -181,11 +217,34 @@ class DatabaseSeeder extends Seeder
             'owner_type_id' => 1
         ]);
 
+        \App\Models\Owner::create([
+            'name' => 'Phillip Mushi',
+            'phone_number' => '+2551234567',
+            'department_id' => 1,
+            'organisational_unit_id' => 1,
+            'owner_type_id' => 2
+        ]);
+
+        \App\Models\Owner::create([
+            'name' => 'Joseph Mushi',
+            'phone_number' => '+2551234567',
+            'department_id' => 1,
+            'organisational_unit_id' => 1,
+            'owner_type_id' => 3
+        ]);
+
         //technologies seeder
         \App\Models\Technology::create([
             'application_id' => 1,
             'framework' => 'Laravel',
             'database' => 'Pgsql',
+            'container' => 'Docker'
+        ]);
+
+        \App\Models\Technology::create([
+            'application_id' => 2,
+            'framework' => 'Laravel',
+            'database' => 'Mysql',
             'container' => 'Docker'
         ]);
     }
