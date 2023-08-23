@@ -50,9 +50,10 @@ class ApplicationController extends Controller
         $application_ticket = substr($application_ticket, 0, 5);
 
         $dataValidate['ci_number'] = "NBC".$application_ticket;
+        $dataValidate['status'] = true;
         Application::create($dataValidate);
 
-        return redirect()->route('application.index')->with('success', 'Application registered succesfully');
+        return redirect()->route('application.index')->banner('Application created successfully.');
     }
 
     /**
@@ -85,7 +86,7 @@ class ApplicationController extends Controller
         // $id->update($request->validated());
         $id->updateOrFail($request->validated());
         
-        return redirect()->route('application.index')->with('success', 'Application updated succesfully');
+        return redirect()->route('application.index')->banner('Application updated successfully.');
     }
 
     /**
@@ -100,7 +101,7 @@ class ApplicationController extends Controller
         DB::statement("UPDATE `applications` SET `applications`.`id` = @count:= @count + 1;");
         DB::statement("ALTER TABLE `applications` AUTO_INCREMENT = 1;");
 
-       return redirect()->route('application.index')->with('success', 'Application deleted successfully');
+       return redirect()->route('application.index')->banner('Application deleted successfully.');
 
     }
 }

@@ -1,53 +1,76 @@
-@extends('layouts.forms')
-@section('content')
-    <h1>Show Page</h1>
-    <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <!--
-            Background backdrop, show/hide based on modal state.
-        
-            Entering: "ease-out duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-            Leaving: "ease-in duration-200"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-        
-        <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <!--
-                Modal panel, show/hide based on modal state.
-        
-                Entering: "ease-out duration-300"
-                From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                To: "opacity-100 translate-y-0 sm:scale-100"
-                Leaving: "ease-in duration-200"
-                From: "opacity-100 translate-y-0 sm:scale-100"
-                To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            -->
-            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                <div class="sm:flex sm:items-start">
-                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                    </svg>
-                    </div>
-                    <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Deactivate account</h3>
-                    <div class="mt-2">
-                        <p class="text-sm text-gray-500">Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.</p>
-                    </div>
-                    </div>
+{{-- @extends('layouts.forms') --}}
+@extends('layouts.dashboard')
+@extends('layouts.sidebar')
+{{-- @extends('layouts.graph') --}}
+
+@section('applicationsDetailsContent')
+<div class="mt-8 bg-white p-4 shadow rounded-lg">
+    <div class="bg-white p-4 rounded-md mt-4">
+        <div class="flex justify-between items-center mb-2 px-3">
+            <h2 class="text-gray-500 text-lg font-semibold">{{ $application->name }}</h2>
+            <h2 class="text-gray-500 text-lg font-semibold">{{ $application->ci_number }}</h2>
+        </div>
+        <div class="my-1"></div>
+        <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+
+        {{-- Application Details --}}
+        <div class="mt-8 flex flex-wrap space-x-0 space-y-2 md:space-x-4 md:space-y-0">
+            <div class="flex-1 bg-white p-4 shadow rounded-lg md:w-1/2">
+                <h2 class="text-gray-500 text-lg font-semibold">Application Details</h2>
+                <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Name: {{ $application->name }}</h1>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Description: {{ $application->description }}</h1>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Technology: {{ ($application->technology !== null) ? $application->technology->framework : 'Not stated' }}</h1>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Server: {{ ($application->server !== null) ? $application->server->ip_address : 'Not stated'}}</h1>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Owner: {{ ($application->owner !== null) ? $application->owner->name : 'Not stated' }}</h1>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Environment: {{ ($application->environment !== null) ? $application->environment->details : 'Not stated' }}</h1>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Status <div>
+                    @livewire('toggle-button',[
+                        'model' => $application,
+                        'field' => 'status'
+                    ])
                 </div>
-                </div>
-                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Deactivate</button>
-                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-                </div>
+                <button class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded text-right">
+                    <a href="{{ route('application.edit', $application->id) }}">Edit</a>
+                </button>
             </div>
+
+            <div class="flex-1 bg-white p-4 shadow rounded-lg md:w-1/2">
+                <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6 mt-7"></div>
+                <h1 class="text-gray-500 text-md font-semibold pb-3" wire:poll.keep-alive>Runtime: @if ($application->status == 1) {{ App\Models\Application::runtime($application->id) }} (approx) @endif</h1>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Avg Response time: </h1>
+                <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px my-8"></div>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">RAM usage: </h1>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Disk space usage: </h1>
+                <h1 class="text-gray-500 text-md font-semibold pb-3">Logs: </h1>
             </div>
         </div>
+
+        {{-- Application Table Graph --}}
+        {{-- usage graph --}}
+        <div class="mt-8 flex flex-wrap space-x-0 space-y-2 md:space-x-4 md:space-y-0">
+            <div class="flex-1 bg-white p-4 shadow rounded-lg md:w-1/2">
+                <h2 class="text-gray-500 text-lg font-semibold pb-1">Performance Indicator </h2>
+                <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div> 
+                <div class="chart-container" style="position: relative; height:150px; width:100%">
+                    <!-- Graphics canvas -->
+                    <canvas id="usageChart"></canvas>
+                </div>
+            </div>
         </div>
+
+        <!-- Application Table details -->
+        <div class="mt-8 flex flex-wrap space-x-0 space-y-2 md:space-x-4 md:space-y-0">
+            <div class="flex-1 bg-white p-4 shadow rounded-lg md:w-1/2">
+                <h2 class="text-gray-500 text-lg font-semibold">Delete Application</h2>
+                <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+                <form action="{{ route('application.destroy', $application->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-1 px-4 rounded">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -19,6 +19,10 @@
             <label for="name" class="block mb-2 text-sm text-gray-600">Application Name</label>
             <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" value="{{ $application->name }}" required>
           </div>
+          {{-- <div class="mb-4">
+            <label for="name" class="block mb-2 text-sm text-gray-600">Application Status</label>
+            <input type="text" id="status" name="status" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" value="{{ $application->status }}" required>
+          </div> --}}
           <div class="mb-4">
             <label for="description" class="block mb-2 text-sm text-gray-600">Application Description</label>
             <textarea name="description" id="description" cols="30" rows="10" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>{{ $application->description }}</textarea>

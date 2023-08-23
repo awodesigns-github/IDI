@@ -27,7 +27,7 @@ class ApplicationRequest extends FormRequest
             'technology_id' => 'required',
             'server_id' => 'required',
             'owner_id' => 'required',
-            'environment_id' => 'required'
+            'environment_id' => 'required',
         ];
     }
 }

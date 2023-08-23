@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('application/edit/{id}', [ApplicationController::class, 'edit'])->name('application.edit');
     Route::patch('application/edit/{id}/update', [ApplicationController::class, 'update'])->name('application.update');
     Route::get('application/{id}/show', [ApplicationController::class, 'show'])->name('application.show');
-    Route::delete('application/{id}/delete', [ApplicationController::class, 'destroy'])->name('application.destroy');
+    Route::delete('application/{id}/delete', [ApplicationController::class, 'destroy'])->middleware(['password.confirm', 'verified'])->name('application.destroy');
 
     // Department Routes
     Route::get('department', [DepartmentController::class, 'index'])->name('department.index');
@@ -45,8 +46,16 @@ Route::middleware('auth')->group(function () {
     Route::get('department/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
     Route::patch('department/edit/{id}', [DepartmentController::class, 'update'])->name('department.update');
     Route::get('department/{id}', [DepartmentController::class, 'show'])->name('department.show');
-    Route::delete('department/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
+    Route::delete('department/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy')->middleware(['password.confirm', 'verified'])->name('department.destroy');
 
+    // Servers and environments
+    Route::get('server', [ServerController::class, 'index'])->name('server.index');
+    Route::get('server-registration', [ServerController::class, 'create'])->name('server.create');
+    Route::get('server-registration/store', [ServerController::class, 'store'])->name('server.store');
+    Route::get('server/edit/{id}', [ServerController::class, 'edit'])->name('server.edit');
+    Route::get('server/edit/{id}/update', [ServerController::class, 'update'])->name('server.update');
+    Route::get('server/{id}/show', [ServerController::class, 'show'])->name('server.show');
+    Route::get('server/edit/{id}/delete', [ServerController::class, 'delete'])->name('server.delete')->middleware(['password.confirm', 'verified'])->name('server.destroy');
 });
 
 

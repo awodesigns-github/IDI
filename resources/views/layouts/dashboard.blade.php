@@ -5,8 +5,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    @livewireStyles
 </head>
 <body>
+    <style>
+        /* CHECKBOX TOGGLE SWITCH */
+        /* @apply rules for documentation, these do not work as inline style */
+        .toggle-checkbox:checked {
+          @apply: right-0 border-green-400;
+          right: 0;
+          border-color: #68D391;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+          @apply: bg-green-400;
+          background-color: #68D391;
+        }
+        </style>
 <div class="flex flex-col h-screen bg-gray-100">
 
     <!-- Barra de navegación superior -->
@@ -55,6 +70,8 @@
             <!-- Departments Section -->
             @yield('departmentContent')
 
+            @yield('applicationsDetailsContent')
+
             {{-- Applications --}}
             {{-- Applications Section --}}
             @yield('applicationsContent')
@@ -64,10 +81,11 @@
 
 <!-- Graphics Script -->
 <script>
-    var env = {!! App\Models\Application::environment_count() !!};
+    // status graph
+    var status = {!! App\Models\Application::application_status() !!}
 
-
-    console.log(env);
+    // environment count script
+    var env = {!! App\Models\Application::environment_count() !!}
 
         countData = [];
         envNames = [];
@@ -96,6 +114,39 @@
         }
     });
 
+    //Memory usage script
+    var appName = {!! App\Models\Application::application_name() !!};
+
+    application_names = []
+
+    appName.forEach(element => {
+        application_names.push(element.name)
+    });
+    
+
+    var usageChart = new Chart(document.getElementById('usageChart'),{
+        type: 'line',
+        data: {
+            labels: application_names,
+            datasets: [{
+                barThickness: 10,
+                data: [1200, 13000, 4950, 5600, 2000, 6000, 300], 
+                backgroundColor: ['#00F0FF', '#8B8B8D', '#00FF00'],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });   
+    
+    // application performance indicator
+
     // Responsive menu
     const menuBtn = document.getElementById('menuBtn');
     const sideNav = document.getElementById('sideNav');
@@ -104,5 +155,6 @@
         sideNav.classList.toggle('hidden'); 
     });
 </script>
+@livewireScripts
 </body>
 </html>
