@@ -51,11 +51,11 @@ Route::middleware('auth')->group(function () {
     // Servers and environments
     Route::get('server', [ServerController::class, 'index'])->name('server.index');
     Route::get('server-registration', [ServerController::class, 'create'])->name('server.create');
-    Route::get('server-registration/store', [ServerController::class, 'store'])->name('server.store');
+    Route::post('server-registration/store', [ServerController::class, 'store'])->name('server.store');
     Route::get('server/edit/{id}', [ServerController::class, 'edit'])->name('server.edit');
-    Route::get('server/edit/{id}/update', [ServerController::class, 'update'])->name('server.update');
+    Route::patch('server/edit/{id}/update', [ServerController::class, 'update'])->name('server.update');
     Route::get('server/{id}/show', [ServerController::class, 'show'])->name('server.show');
-    Route::get('server/edit/{id}/delete', [ServerController::class, 'delete'])->name('server.delete')->middleware(['password.confirm', 'verified'])->name('server.destroy');
+    Route::delete('server/{id}/delete', [ServerController::class, 'destroy'])->middleware(['password.confirm', 'verified'])->name('server.destroy');
 });
 
 

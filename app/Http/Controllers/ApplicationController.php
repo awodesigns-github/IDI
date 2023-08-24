@@ -22,7 +22,7 @@ class ApplicationController extends Controller
     public function index(): View
     {   
         return view('application.index', [
-            'application' => Application::query()->orderBy('id','ASC')->get(),
+            'application' => Application::query()->orderBy('id','ASC')->get()
         ]);
     }
 

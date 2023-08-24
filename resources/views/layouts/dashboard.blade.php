@@ -60,7 +60,7 @@
                 <div class="absolute top-1 left-2 inline-flex items-center p-2">
                     <i class="fas fa-search text-gray-400"></i>
                 </div>
-                <input class="w-full h-10 pl-10 pr-4 py-1 text-base placeholder-gray-500 border rounded-full focus:shadow-outline" type="search" placeholder="Search Application...">
+                <input class="w-full h-10 pl-10 pr-4 py-1 text-base placeholder-gray-500 border rounded-full focus:shadow-outline" type="search" placeholder="Search Server...">
             </div>
 
             <!-- Graphics container -->
@@ -75,14 +75,27 @@
             {{-- Applications --}}
             {{-- Applications Section --}}
             @yield('applicationsContent')
+
+            {{-- Servers and environments --}}
+            @yield('serverContent')
+
+            @yield('serverDetailsContent')
         </div>
     </div>
 </div>
 
 <!-- Graphics Script -->
 <script>
+    // jquery page reload
+    $(document).ready(function () {
+       setInterval(() => {
+        location.reload()
+       }, 10000); 
+    });
+
     // status graph
-    var status = {!! App\Models\Application::application_status() !!}
+    var status = {!! App\Models\Application::application_status() !!} // running applications
+    console.log(status);
 
     // environment count script
     var env = {!! App\Models\Application::environment_count() !!}
@@ -102,7 +115,7 @@
             labels: envNames,
             datasets: [{
                 data: countData, 
-                backgroundColor: ['#00F0FF', '#8B8B8D', '#00FF00'],
+                backgroundColor: colors,
             }]
         },
         options: {
@@ -113,6 +126,9 @@
             }
         }
     });
+
+    // Server status --- running and down servers
+
 
     //Memory usage script
     var appName = {!! App\Models\Application::application_name() !!};
@@ -144,8 +160,44 @@
             }
         }
     });   
+
+    // applications count
+    var apps = {!! App\Models\Server::application_count() !!} // application count in servers
+    // console.log(apps)
+    countApps = []
+    names = []
+
+    console.log(countApps, names)
+
+    apps.forEach(element => {
+        countApps.push(element.count)
+        names.push(element.hostname)
+    });
     
-    // application performance indicator
+    var serverStatus =  new Chart(document.getElementById('serverStatus'),{
+        type: 'bar',
+        data: {
+            labels: names,
+            datasets: [{
+                barThickness: 5,
+                data: countApps,
+                backgroundColor: ['#00F0FF', '#8B8B8D', '#00FF00'],
+
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // server performance based on latency...
+    // dynamic server status -- pinging random sites for tests
 
     // Responsive menu
     const menuBtn = document.getElementById('menuBtn');

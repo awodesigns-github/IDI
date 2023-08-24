@@ -138,20 +138,18 @@ class DatabaseSeeder extends Seeder
             'server_type_id' => 2,
             'server_memory' => '32000',
             'disk_space' => '64000',
-            'applications' => 2,
             'status' => true
         ]);
 
         \App\Models\Server::create([
             'ip_address' => "192.168.1.3",
-            'hostname' => 'localhost',
+            'hostname' => 'uat',
             'environment_id' => 2,
             'purpose_id' => 1,
             'operating_system_id' => 1,
             'server_type_id' => 2,
             'server_memory' => '32000',
             'disk_space' => '64000',
-            'applications' => 3,
             'status' => true
         ]);
 
@@ -164,9 +162,10 @@ class DatabaseSeeder extends Seeder
             'server_type_id' => 2,
             'server_memory' => '32000',
             'disk_space' => '128000',
-            'applications' => 2,
             'status' => true
         ]);
+
+        
 
         //department seeder
         \App\Models\Department::create([

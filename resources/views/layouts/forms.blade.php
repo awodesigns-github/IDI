@@ -10,6 +10,10 @@
   <div class="min-h-screen flex items-center justify-center">
     <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
         @yield('content')
+
+        @yield('serverContent')
+
+        @yield('serverFormContent')
     </div>
 </body>
 </html>

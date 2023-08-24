@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 @extends('layouts.sidebar')
 @extends('layouts.graph')
+
 @section('applicationsContent')
 <!-- Applications -->
     <!-- Applications List Section -->
@@ -53,15 +54,6 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                                 </svg>
                               </a></td>
-                            {{-- <td class="py-2 px-2 border-b flex flex-row space-x-2 pb-5 grow-0 place-content-center">
-                                <button class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-1 px-3 rounded"><a href="{{ route('application.edit', $applications->id) }}">Edit</a></button>
-                                <button class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-1 px-4 rounded justify-self-center"><a href="{{ route('application.show', $applications->id) }}">Show</a></button>
-                                <form action="{{ route('application.destroy', $applications->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-1 px-4 rounded justify-self-center">Delete</button>
-                                </form>
-                            </td> --}}
                         </tr>   
                     @endforeach
                 </tbody>

@@ -23,7 +23,7 @@ class Application extends Model
     }
 
     public function server(){
-        return $this->belongsTo(Server::class, 'server_id');
+        return $this->belongsTo(Server::class, 'server_id', 'id');
     }
 
     public function owner(): BelongsTo
